@@ -1,0 +1,17 @@
+main {
+  height: 100vh;
+}
+
+main header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary);
+  color: var(--font-primary);
+  padding: 10px 0;
+}
+
+main header h2 {
+  position: absolute;
+  left: 200px;
+}
