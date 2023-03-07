@@ -4,14 +4,19 @@ main {
 
 main header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background: var(--primary);
   color: var(--font-primary);
-  padding: 10px 0;
+  padding: 10px 10px 10px 200px;
 }
 
-main header h2 {
-  position: absolute;
-  left: 200px;
+main header button {
+  background: #FE5E00;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
 }
