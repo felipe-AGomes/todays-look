@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import {type CategoriesData, type Category} from '../Looks/Looks';
 import {heartEmpty, heartFill} from '../svg';
 
