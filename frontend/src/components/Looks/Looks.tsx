@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Categories, {type Clothes} from '../Categories/Categories';
+import Categories, {type Clothe} from '../Categories/Categories';
 
 import './Looks.css';
 
@@ -17,7 +17,11 @@ export type CategoriesData = {
 	active: boolean;
 };
 
-function Looks(): JSX.Element {
+type Prop = {
+	handleClickChange: (clothe: Clothe) => void;
+};
+
+function Looks({handleClickChange}: Prop): JSX.Element {
 	const [categories, setCategories] = useState<CategoriesData[]>([
 		{category: 'TODOS', active: true},
 		{category: 'CALÇAS', active: false},
@@ -29,7 +33,7 @@ function Looks(): JSX.Element {
 		{category: 'FAVORITOS', active: false},
 	]);
 
-	const [clothes, setClothes] = useState<Clothes[]>([
+	const [clothes, setClothes] = useState<Clothe[]>([
 		{id: 1, category: 'CALÇAS', favorite: false, href: 'https://w7.pngwing.com/pngs/63/280/png-transparent-jeans-denim-slim-fit-pants-bell-bottoms-jeans-blue-fashion-boy.png'},
 		{id: 2, category: 'CALÇAS', favorite: false, href: 'https://w7.pngwing.com/pngs/96/103/png-transparent-t-shirt-pants-clothing-pajamas-loose-pants-adidas-black-top.png'},
 		{id: 3, category: 'SHORTS', favorite: false, href: 'https://w7.pngwing.com/pngs/300/400/png-transparent-jeans-denim-bermuda-shorts-jeans-active-shorts-para-shorts.png'},
@@ -41,6 +45,11 @@ function Looks(): JSX.Element {
 		{id: 9, category: 'BLUSAS', favorite: false, href: 'https://w7.pngwing.com/pngs/528/973/png-transparent-white-pullover-hoodie-illustration-mexico-hoodie-bluza-clothing-mercadolibre-hoodie-white-sweatshirt-sweater.png'},
 		{id: 10, category: 'BLUSAS', favorite: false, href: 'https://w7.pngwing.com/pngs/175/902/png-transparent-black-hoodie-black-sweater-hoodie.png'},
 	]);
+
+	function selectCloth(id: number) {
+		const clothe: Clothe[] = clothes.filter(clothe => clothe.id === id ? clothe : undefined);
+		handleClickChange(clothe[0]);
+	}
 
 	function handleClickList(index: number): void {
 		const newCategories = categories.map((category, i) => ({...category, active: i === index}));
@@ -74,6 +83,9 @@ function Looks(): JSX.Element {
 									? clothe.favorite
 									: clothe.category === cat.category,
 						)}
+						selectCloth={id => {
+							selectCloth(id);
+						}}
 						handleClickList={() => {
 							handleClickList(index);
 						}}

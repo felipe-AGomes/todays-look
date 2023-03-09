@@ -1,5 +1,6 @@
 import React from 'react';
 import {type CategoriesData, type Category} from '../Looks/Looks';
+import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
 import {heartEmpty, heartFill} from '../svg';
 
 import './Categories.css';
@@ -7,19 +8,27 @@ import './Categories.css';
 type Props = {
 	categories: CategoriesData;
 	index: number;
-	clothes: Clothes[];
+	clothes: Clothe[];
 	handleClickList: (index: number) => void;
 	handleClickFavorite: (id: number) => void;
+	selectCloth: (id: number) => void;
 };
 
-export type Clothes = {
+export type Clothe = {
 	id: number;
 	category: Category;
 	favorite: boolean;
 	href: string;
 };
 
-function Categories({categories, index, clothes, handleClickFavorite, handleClickList}: Props) {
+function Categories({
+	categories,
+	index,
+	clothes,
+	handleClickFavorite,
+	handleClickList,
+	selectCloth,
+}: Props) {
 	return (
 		<li onClick={() => {
 			handleClickList(index);
@@ -27,13 +36,22 @@ function Categories({categories, index, clothes, handleClickFavorite, handleClic
 		className={`${categories.active ? 'active' : ''}`}>
 			<h3>{categories.category}</h3>
 			<div className='grid'>{
-				clothes.map(element => (
+				clothes.map(clothe => (
 					<>
-						<div className='image' key={element.id}>
-							<img src={element.href} alt={element.category} />
-							<div className='favorite' onClick={() => {
-								handleClickFavorite(element.id);
-							}}>{element.favorite ? heartFill : heartEmpty}</div>
+						<div
+							key={clothe.id}
+							className='image'
+							onClick={() => {
+								selectCloth(clothe.id);
+							}}>
+							<img src={clothe.href} alt={clothe.category} />
+							<SuspenseIcon
+								clothe={clothe}
+								icon={clothe.favorite ? heartFill : heartEmpty}
+								handleClick={id => {
+									handleClickFavorite(id);
+								}}
+							/>
 						</div>
 					</>
 				))

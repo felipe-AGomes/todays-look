@@ -1,0 +1,18 @@
+#clothesSet {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	width: 100%;
+}
+
+.image {
+	position: relative;
+	/* height: 200px; */
+	width: 200px;
+}
+
+.image img {
+	/* height: 100%; */
+	width: 100%;
+}

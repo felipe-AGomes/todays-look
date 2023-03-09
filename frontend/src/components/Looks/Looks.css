@@ -10,6 +10,7 @@
 	
 	list-style: none;
 	height: calc(100vh - 56px);
+	min-width: 400px;
 }
 
 .list-container .list li {

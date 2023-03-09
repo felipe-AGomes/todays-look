@@ -17,20 +17,6 @@
 	position: relative;
 }
 
-.list-container .list li .grid .image:hover .favorite {
-	display: block;
-}
-
-.list-container .list li .grid .image .favorite {
-	display: none;
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	width: 30px;
-	height: 30px;
-	z-index: 2;
-}
-
 .list-container .list li .grid .image img {
 	width: 100%;
 }
