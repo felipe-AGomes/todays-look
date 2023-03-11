@@ -25,7 +25,7 @@ function Home(): JSX.Element {
 	}
 
 	return (
-		<main>
+		<main id='home'>
 			<header>
 				<h2>LOOK</h2>
 				<h1>TODAYS LOOK</h1>

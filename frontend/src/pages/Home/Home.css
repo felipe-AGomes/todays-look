@@ -1,8 +1,8 @@
-main {
+#home {
   height: 100vh;
 }
 
-main header {
+#home header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,7 +11,7 @@ main header {
   padding: 10px 10px 10px 200px;
 }
 
-main header button {
+#home header button {
   background: #FE5E00;
   color: #fff;
   font-size: 1.2rem;
@@ -21,7 +21,7 @@ main header button {
   cursor: pointer;
 }
 
-main .looks-container {
+#home .looks-container {
   display: flex;
   align-items: center;
 }
