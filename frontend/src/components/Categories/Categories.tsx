@@ -30,23 +30,18 @@ function Categories({
 			<h3>{categories.category}</h3>
 			<div className='grid'>{
 				clothes.map(clothe => (
-					<>
-						<div
-							key={clothe.id}
-							className='image'
-						>
-							<img src={clothe.href} alt={clothe.category} onClick={() => {
-								selectCloth(clothe.id);
-							}} />
-							<SuspenseIcon
-								clothe={clothe}
-								icon={clothe.favorite ? heartFill : heartEmpty}
-								handleClick={id => {
-									handleClickFavorite(id);
-								}}
-							/>
-						</div>
-					</>
+					<div key={clothe.id} className='image'>
+						<img src={clothe.href} alt={clothe.category} onClick={() => {
+							selectCloth(clothe.id);
+						}} />
+						<SuspenseIcon
+							clothe={clothe}
+							icon={clothe.favorite ? heartFill : heartEmpty}
+							handleClick={id => {
+								handleClickFavorite(id);
+							}}
+						/>
+					</div>
 				))
 			}
 			</div>
