@@ -1,5 +1,5 @@
 import React from 'react';
-import {type Clothe} from '../Categories/Categories';
+import {type Clothe} from '../../types';
 import './SuspenseIcon.css';
 
 type Prop = {
@@ -10,7 +10,7 @@ type Prop = {
 
 function SuspenseIcon({clothe, icon, handleClick}: Prop) {
 	return (
-		<div className='favorite' onClick={handleClick ? () => {
+		<div className='suspense-icon' onClick={handleClick ? () => {
 			handleClick(clothe.id);
 		} : undefined}>{icon}
 		</div>

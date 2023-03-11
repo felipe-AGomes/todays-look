@@ -1,5 +1,5 @@
 import React from 'react';
-import {type CategoriesData, type Category} from '../Looks/Looks';
+import {type CategoriesData, type Clothe} from '../../types';
 import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
 import {heartEmpty, heartFill} from '../svg';
 
@@ -12,13 +12,6 @@ type Props = {
 	handleClickList: (index: number) => void;
 	handleClickFavorite: (id: number) => void;
 	selectCloth: (id: number) => void;
-};
-
-export type Clothe = {
-	id: number;
-	category: Category;
-	favorite: boolean;
-	href: string;
 };
 
 function Categories({
@@ -41,10 +34,10 @@ function Categories({
 						<div
 							key={clothe.id}
 							className='image'
-							onClick={() => {
+						>
+							<img src={clothe.href} alt={clothe.category} onClick={() => {
 								selectCloth(clothe.id);
-							}}>
-							<img src={clothe.href} alt={clothe.category} />
+							}} />
 							<SuspenseIcon
 								clothe={clothe}
 								icon={clothe.favorite ? heartFill : heartEmpty}

@@ -6,13 +6,22 @@
 	width: 100%;
 }
 
-.image {
+#clothesSet .image {
 	position: relative;
-	/* height: 200px; */
-	width: 200px;
 }
 
-.image img {
-	/* height: 100%; */
-	width: 100%;
+#clothesSet .body, .legs {
+	height: 200px;
+}
+
+#clothesSet .bodyLegs {
+	height: 400px;
+}
+
+#clothesSet .shoes {
+	height: 100px;
+}
+
+#clothesSet .image img {
+	height: 100%;
 }
