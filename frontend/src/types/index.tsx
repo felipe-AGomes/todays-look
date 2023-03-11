@@ -4,13 +4,13 @@ export type SelectedClothes = {
 };
 
 export type Category =
-'CALÇAS'
-| 'SHORTS'
-| 'BLUSAS'
-| 'CALÇADOS'
-| 'CAMISETAS'
-| 'FAVORITOS'
-| 'OUTROS';
+'CALÇA'
+| 'SHORTS/SAIA'
+| 'BLUSA'
+| 'CALÇADO'
+| 'CAMISETA'
+| 'FAVORITO'
+| 'VESTIDO';
 
 export type Body =
 'body'

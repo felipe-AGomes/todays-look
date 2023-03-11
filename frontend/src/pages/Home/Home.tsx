@@ -3,9 +3,16 @@ import Looks from '../../components/Looks/Looks';
 import ClothesSet from '../../components/ClothesSet/ClothesSet';
 import './Home.css';
 import {type Clothe} from '../../types';
+import AddCloth from '../../components/AddCloth/AddCloth';
+
+type Modal = {
+	addCloth: 'active' | '';
+	looks: 'active' | '';
+};
 
 function Home(): JSX.Element {
 	const [selectedClothes, setSelectedClothes] = useState<Clothe[]>([]);
+	const [modal, setModal] = useState<Modal>({addCloth: '', looks: 'active'});
 
 	function handleClickChange(clothe: Clothe): void {
 		const filteredClothes = selectedClothes.filter(element => element.body === clothe.body ? element : undefined);
@@ -24,17 +31,40 @@ function Home(): JSX.Element {
 		console.log('Log Out');
 	}
 
+	function activeModal(n: 'addCloth' | 'cloth') {
+		if (n === 'addCloth') {
+			setModal({addCloth: 'active', looks: ''});
+			return;
+		}
+
+		setModal({addCloth: '', looks: 'active'});
+	}
+
 	return (
 		<main id='home'>
 			<header>
-				<h2>LOOK</h2>
+				<nav>
+					<ul>
+						<li
+							className={`${modal.addCloth}`}
+							onClick={() => {
+								activeModal('addCloth');
+							}}>Adicionar roupa</li>
+						<li
+							className={`${modal.looks}`}
+							onClick={() => {
+								activeModal('cloth');
+							}}>Roupas</li>
+					</ul>
+				</nav>
 				<h1>TODAYS LOOK</h1>
 				<button onClick={() => {
 					logOut();
 				}}>Sign out</button>
 			</header>
 			<div className='looks-container'>
-				<Looks handleClickChange={id => {
+				<AddCloth modal={modal.addCloth}/>
+				<Looks modal={modal.looks} handleClickChange={id => {
 					handleClickChange(id);
 				}}/>
 				<ClothesSet removeCloth={(id: number) => {

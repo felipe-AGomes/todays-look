@@ -6,7 +6,7 @@ function Register() {
 	const [password, setPassword] = useState('');
 	const [password2, setPassword2] = useState('');
 
-	function handleSubmit(event: React.FormEvent): void {
+	function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
 		event.preventDefault();
 		console.log({email, password, password2});
 		setEmail('');
