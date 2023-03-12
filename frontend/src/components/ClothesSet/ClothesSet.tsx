@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import {type Clothe} from '../../types';
+import {type ClotheFe} from '../../types';
 import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
 import {trash} from '../svg';
 import './ClothesSet.css';
 
 type Prop = {
-	selectedClothes: Clothe[];
-	removeCloth: (id: number) => void;
+	selectedClothes: ClotheFe[];
+	removeCloth: (id: string) => void;
 };
 
 function ClothesSet({selectedClothes, removeCloth}: Prop) {
@@ -24,9 +24,7 @@ function ClothesSet({selectedClothes, removeCloth}: Prop) {
 				{body ? <SuspenseIcon
 					clothe={body}
 					icon={trash}
-					handleClick={(id: number) => {
-						removeCloth(id);
-					}}
+					handleClick={removeCloth}
 				/> : undefined}
 			</div>
 			<div
@@ -36,18 +34,14 @@ function ClothesSet({selectedClothes, removeCloth}: Prop) {
 				{legs ? <SuspenseIcon
 					clothe={legs}
 					icon={trash}
-					handleClick={(id: number) => {
-						removeCloth(id);
-					}}
+					handleClick={removeCloth}
 				/> : undefined}
 			</div>
 			<div className='image shoes'>
 				{shoes ? <SuspenseIcon
 					clothe={shoes}
 					icon={trash}
-					handleClick={(id: number) => {
-						removeCloth(id);
-					}}
+					handleClick={removeCloth}
 				/> : undefined}
 				<img src={shoes?.href} alt={shoes?.category} />
 			</div>

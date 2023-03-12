@@ -1,11 +1,13 @@
 import React from 'react';
-import {type Clothe} from '../../types';
+import {type ClotheFe} from '../../types';
 import './SuspenseIcon.css';
 
 type Prop = {
-	clothe: Clothe;
+	clothe: {
+		id: string;
+	};
 	icon: JSX.Element;
-	handleClick: (id: number) => void;
+	handleClick: (id: string) => void;
 };
 
 function SuspenseIcon({clothe, icon, handleClick}: Prop) {

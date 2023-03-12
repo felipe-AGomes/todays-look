@@ -23,8 +23,16 @@ export type CategoriesData = {
 	active: boolean;
 };
 
-export type Clothe = {
-	id: number;
+export type ClotheDb = {
+	id: string;
+	category: Category;
+	favorite: boolean;
+	href: File;
+	body: Body;
+};
+
+export type ClotheFe = {
+	id: string;
 	category: Category;
 	favorite: boolean;
 	href: string;

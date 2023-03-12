@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "module": "CommonJS",
+    "module": "commonjs",
     "lib": [
       "DOM",
       "ES6",
@@ -12,7 +12,6 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "removeComments": true,
-    "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,

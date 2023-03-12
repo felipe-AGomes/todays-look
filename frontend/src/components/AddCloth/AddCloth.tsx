@@ -1,35 +1,87 @@
+
 import React, {useState} from 'react';
+import {type Body, type Category, type ClotheDb} from '../../types';
 import './AddCloth.css';
 
 type Prop = {
 	modal: 'active' | '';
+	setNewClothe: (response: ClotheDb[]) => void;
 };
 
-function AddCloth({modal}: Prop) {
-	const [image, setImage] = useState('');
-	const [category, setCategory] = useState('');
+function AddCloth({modal, setNewClothe}: Prop) {
+	const [image, setImage] = useState<File>();
+	const [displayedImage, setDisplayedImage] = useState<string>('');
+	const [category, setCategory] = useState<Category | 'CATEGORIA'>();
+
+	function fileReader(file: File) {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.addEventListener('load', e => {
+			const targetReader = e.target;
+			const result = targetReader?.result;
+			if (result && typeof result === 'string') {
+				setDisplayedImage(result);
+			}
+		});
+	}
+
+	function setBody(category: Category): Body {
+		if (category === 'CALÇA' || category === 'SHORTS/SAIA') {
+			return 'legs';
+		}
+
+		if (category === 'BLUSA' || category === 'CAMISETA') {
+			return 'body';
+		}
+
+		if (category === 'CALÇADO') {
+			return 'shoes';
+		}
+
+		return 'bodyLegs';
+	}
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		console.log({category, image});
-		setImage('');
-		setCategory('');
+		// Event.preventDefault();
+		// const formData = new FormData();
+		// if (!image) {
+		// 	return;
+		// }
+
+		// if (category === 'CATEGORIA' || category === undefined) {
+		// 	return;
+		// }
+
+		// formData.append('imagem', image);
+
+		// fetch('http://localhost:3333/newclothe', {
+		// 	method: 'POST',
+		// 	body: formData,
+		// })
+		// 	.then(async response => response.json())
+		// 	.then(console.log)
+		// 	// .then((clothes: ClotheDb[]) => {
+		// 	// 	setNewClothe(clothes);
+		// 	// })
+		// 	.catch(err => {
+		// 		console.error(err);
+		// 	});
+
+		// setDisplayedImage('');
+		// setImage(undefined);
+		// setCategory(undefined);
 	}
 
 	function handleImage(event: React.ChangeEvent<HTMLInputElement>) {
-		const inputTarget = event.target;
-		const file = inputTarget.files ? inputTarget.files[0] : null;
+		if (!event.target.files) {
+			return;
+		}
 
-		if (file) {
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.addEventListener('load', e => {
-				const targetReader = e.target;
-				const result = targetReader?.result;
-				if (result && typeof result === 'string') {
-					setImage(result);
-				}
-			});
+		setImage(event.target.files[0]);
+
+		if (image) {
+			// SetImage(image);
+			fileReader(image);
 		}
 	}
 
@@ -42,8 +94,8 @@ function AddCloth({modal}: Prop) {
 						handleSubmit(e);
 					}}>
 					<label htmlFor='file'>{
-						image ? (
-							<img src={image}/>
+						displayedImage ? (
+							<img src={displayedImage}/>
 						) : 'IMAGEM'
 					}</label>
 					<input
@@ -52,6 +104,7 @@ function AddCloth({modal}: Prop) {
 						id='file'
 						onChange={handleImage}/>
 					<select onChange={e => {
+						console.log(e.target.value);
 						setCategory(e.target.value);
 					}} name='category' id='category'>
 						<option defaultChecked>CATEGORIA</option>
@@ -59,9 +112,9 @@ function AddCloth({modal}: Prop) {
 						<option value='BLUSA'>BLUSA</option>
 						<option value='VESTIDO'>VESTIDO</option>
 						<option value='CALÇA'>CALÇA</option>
-						<option value='SHORT/SAIA'>SHORT</option>
-						<option value='SHORT/SAIA'>SAIA</option>
-						<option value='TÊNIS'>TÊNIS</option>
+						<option value='SHORTS/SAIA'>SHORT</option>
+						<option value='SHORTS/SAIA'>SAIA</option>
+						<option value='CALÇADO'>CALÇADO</option>
 					</select>
 					<button>ENVIAR</button>
 				</form>

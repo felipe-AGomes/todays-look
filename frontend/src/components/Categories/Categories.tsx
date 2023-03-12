@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import React from 'react';
-import {type CategoriesData, type Clothe} from '../../types';
+import {type ClotheFe, type CategoriesData, type ClotheDb} from '../../types';
 import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
 import {heartEmpty, heartFill} from '../svg';
 
@@ -8,20 +9,31 @@ import './Categories.css';
 type Props = {
 	categories: CategoriesData;
 	index: number;
-	clothes: Clothe[];
+	clothes: ClotheFe[];
 	handleClickList: (index: number) => void;
-	handleClickFavorite: (id: number) => void;
-	selectCloth: (id: number) => void;
+	setNewClothe: (clothes: ClotheDb[]) => void;
+	selectCloth: (id: string) => void;
 };
 
 function Categories({
 	categories,
 	index,
 	clothes,
-	handleClickFavorite,
+	setNewClothe,
 	handleClickList,
 	selectCloth,
 }: Props) {
+	function setFavorite(id: string) {
+		fetch(`http://localhost:3333/clothes/${id}`, {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json'},
+		})
+			.then(async response => response.json())
+			.then((data: ClotheDb[]) => {
+				setNewClothe(data);
+			});
+	}
+
 	return (
 		<li onClick={() => {
 			handleClickList(index);
@@ -37,9 +49,7 @@ function Categories({
 						<SuspenseIcon
 							clothe={clothe}
 							icon={clothe.favorite ? heartFill : heartEmpty}
-							handleClick={id => {
-								handleClickFavorite(id);
-							}}
+							handleClick={setFavorite}
 						/>
 					</div>
 				))
