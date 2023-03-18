@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
+
 import React from 'react';
-import {type ClotheFe, type CategoriesData, type ClotheDb} from '../../types';
+import {type Clothe, type CategoriesData} from '../../types';
 import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
 import {heartEmpty, heartFill} from '../svg';
 
@@ -9,29 +9,28 @@ import './Categories.css';
 type Props = {
 	categories: CategoriesData;
 	index: number;
-	clothes: ClotheFe[];
+	clothes: Clothe[];
 	handleClickList: (index: number) => void;
-	setNewClothe: (clothes: ClotheDb[]) => void;
-	selectCloth: (id: string) => void;
+	updateClothes: () => void;
+	addClothe: (id: string) => void;
 };
 
 function Categories({
 	categories,
 	index,
 	clothes,
-	setNewClothe,
+	updateClothes,
 	handleClickList,
-	selectCloth,
+	addClothe,
 }: Props) {
-	function setFavorite(id: string) {
-		fetch(`http://localhost:3333/clothes/${id}`, {
+	async function setFavorite(id: string) {
+		const response = await fetch(`http://localhost:3333/clothes/${id}`, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
-		})
-			.then(async response => response.json())
-			.then((data: ClotheDb[]) => {
-				setNewClothe(data);
-			});
+		});
+		const data = await response.json() as Clothe;
+		console.log(data);
+		updateClothes();
 	}
 
 	return (
@@ -43,9 +42,9 @@ function Categories({
 			<div className='grid'>{
 				clothes.map(clothe => (
 					<div key={clothe.id} className='image'>
-						<img src={clothe.href} alt={clothe.category} onClick={() => {
-							selectCloth(clothe.id);
-						}} />
+						<img src={clothe?.image} alt={clothe.category} onClick={() => {
+							addClothe(clothe.id);
+						}}/>
 						<SuspenseIcon
 							clothe={clothe}
 							icon={clothe.favorite ? heartFill : heartEmpty}

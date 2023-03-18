@@ -1,5 +1,4 @@
 import React from 'react';
-import {type ClotheFe} from '../../types';
 import './SuspenseIcon.css';
 
 type Prop = {

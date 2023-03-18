@@ -4,7 +4,7 @@ import {type Category, type Body, type Clothe} from 'src/types';
 let clothes: Clothe[] = [];
 
 type BodyReq = {
-	img: string;
+	image: string | undefined;
 	category: Category;
 	body: Body;
 };
@@ -16,8 +16,19 @@ function getAllClothes(_req: Request, res: Response): void {
 }
 
 function setNewCloth(req: Request, res: Response): void {
-	const {img, category, body}: BodyReq = req.body as BodyReq;
-	console.log({img, category, body});
+	const {category, body} = req.body as BodyReq;
+	const image = req.file?.filename;
+	const url = `http://localhost:3333/files/${image ? image : ''}`;
+	const id = generateId();
+	clothes.push({
+		id,
+		category,
+		body,
+		image: url,
+		favorite: false,
+	});
+	const response = clothes.filter(e => e.id === id);
+	res.send(response[0]);
 }
 
 function setFavorite(req: Request, res: Response): void {
@@ -26,12 +37,12 @@ function setFavorite(req: Request, res: Response): void {
 	if (result.length === 1) {
 		const clothe = result[0];
 		const newClothe = {...clothe, favorite: !clothe.favorite};
-		const t = clothes.map(clothe => {
+		const updatedClothes = clothes.map(clothe => {
 			const newClothes = clothe.id === id ? newClothe : clothe;
 			return newClothes;
 		});
-		clothes = t;
-		res.send(clothes);
+		clothes = updatedClothes;
+		res.send(newClothe);
 	} else {
 		res.send('error');
 	}

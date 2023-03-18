@@ -27,6 +27,6 @@ export type Clothe = {
 	id: string;
 	category: Category;
 	favorite: boolean;
-	href: string;
+	image: string | undefined;
 	body: Body;
 };

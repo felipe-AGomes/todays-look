@@ -1,31 +1,33 @@
 
-import React, {useState} from 'react';
-import {type Body, type Category, type ClotheDb} from '../../types';
+import React, {useEffect, useState} from 'react';
+import {type Body, type Clothe} from '../../types';
 import './AddCloth.css';
 
 type Prop = {
 	modal: 'active' | '';
-	setNewClothe: (response: ClotheDb[]) => void;
+	updateClothes: () => void;
 };
 
-function AddCloth({modal, setNewClothe}: Prop) {
+function AddCloth({modal, updateClothes}: Prop) {
 	const [image, setImage] = useState<File>();
 	const [displayedImage, setDisplayedImage] = useState<string>('');
-	const [category, setCategory] = useState<Category | 'CATEGORIA'>();
+	const [category, setCategory] = useState<string>('CATEGORIA');
 
-	function fileReader(file: File) {
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.addEventListener('load', e => {
-			const targetReader = e.target;
-			const result = targetReader?.result;
-			if (result && typeof result === 'string') {
-				setDisplayedImage(result);
-			}
-		});
-	}
+	useEffect(() => {
+		if (image) {
+			const reader = new FileReader();
+			reader.readAsDataURL(image);
+			reader.addEventListener('load', e => {
+				const targetReader = e.target;
+				const result = targetReader?.result;
+				if (result && typeof result === 'string') {
+					setDisplayedImage(result);
+				}
+			});
+		}
+	}, [image]);
 
-	function setBody(category: Category): Body {
+	function setBody(): Body {
 		if (category === 'CALÇA' || category === 'SHORTS/SAIA') {
 			return 'legs';
 		}
@@ -41,48 +43,34 @@ function AddCloth({modal, setNewClothe}: Prop) {
 		return 'bodyLegs';
 	}
 
-	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		// Event.preventDefault();
-		// const formData = new FormData();
-		// if (!image) {
-		// 	return;
-		// }
-
-		// if (category === 'CATEGORIA' || category === undefined) {
-		// 	return;
-		// }
-
-		// formData.append('imagem', image);
-
-		// fetch('http://localhost:3333/newclothe', {
-		// 	method: 'POST',
-		// 	body: formData,
-		// })
-		// 	.then(async response => response.json())
-		// 	.then(console.log)
-		// 	// .then((clothes: ClotheDb[]) => {
-		// 	// 	setNewClothe(clothes);
-		// 	// })
-		// 	.catch(err => {
-		// 		console.error(err);
-		// 	});
-
-		// setDisplayedImage('');
-		// setImage(undefined);
-		// setCategory(undefined);
-	}
-
-	function handleImage(event: React.ChangeEvent<HTMLInputElement>) {
-		if (!event.target.files) {
+	async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		const formData = new FormData();
+		if (!image) {
 			return;
 		}
 
-		setImage(event.target.files[0]);
-
-		if (image) {
-			// SetImage(image);
-			fileReader(image);
+		if (category === 'CATEGORIA' || category === undefined) {
+			return;
 		}
+
+		formData.append('category', category);
+		formData.append('body', setBody());
+		formData.append('image', image);
+
+		const response = await fetch('http://localhost:3333/upload', {
+			method: 'POST',
+			body: formData,
+		});
+
+		const data = await response.json() as Clothe;
+
+		console.log(data);
+		updateClothes();
+
+		setDisplayedImage('');
+		setImage(undefined);
+		setCategory('CATEGORIA');
 	}
 
 	return (
@@ -90,8 +78,8 @@ function AddCloth({modal, setNewClothe}: Prop) {
 			<div className='addCloth-box'>
 				<form
 					className='addCloth-form'
-					onSubmit={e => {
-						handleSubmit(e);
+					onSubmit={async e => {
+						await handleSubmit(e);
 					}}>
 					<label htmlFor='file'>{
 						displayedImage ? (
@@ -102,9 +90,10 @@ function AddCloth({modal, setNewClothe}: Prop) {
 						hidden
 						type='file'
 						id='file'
-						onChange={handleImage}/>
+						onChange={e => {
+							setImage(e.target.files?.[0]);
+						}}/>
 					<select onChange={e => {
-						console.log(e.target.value);
 						setCategory(e.target.value);
 					}} name='category' id='category'>
 						<option defaultChecked>CATEGORIA</option>

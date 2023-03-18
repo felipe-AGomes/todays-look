@@ -1,18 +1,18 @@
 
-import React, {useEffect, useState} from 'react';
-import {type ClotheFe, type CategoriesData, type ClotheDb} from '../../types';
+import React, {useState} from 'react';
+import {type Clothe, type CategoriesData} from '../../types';
 import Categories from '../Categories/Categories';
 
 import './Looks.css';
 
 type Prop = {
 	modal: 'active' | '';
-	clothes: ClotheFe[];
-	handleClickChange: (clothe: ClotheFe) => void;
-	setNewClothe: (clothe: ClotheDb[]) => void;
+	clothes: Clothe[];
+	addClothe: (id: string) => void;
+	updateClothes: () => void;
 };
 
-function Looks({modal, clothes, setNewClothe, handleClickChange}: Prop): JSX.Element {
+function Looks({modal, clothes, updateClothes, addClothe}: Prop): JSX.Element {
 	const [categories, setCategories] = useState<CategoriesData[]>([
 		{category: 'TODOS', active: true},
 		{category: 'CALÇA', active: false},
@@ -23,11 +23,6 @@ function Looks({modal, clothes, setNewClothe, handleClickChange}: Prop): JSX.Ele
 		{category: 'VESTIDO', active: false},
 		{category: 'FAVORITO', active: false},
 	]);
-
-	function selectCloth(id: string) {
-		const clothe: ClotheFe[] = clothes.filter(clothe => clothe.id === id ? clothe : undefined);
-		handleClickChange(clothe[0]);
-	}
 
 	function handleClickList(index: number): void {
 		const newCategories = categories.map((category, i) => ({...category, active: i === index}));
@@ -52,11 +47,11 @@ function Looks({modal, clothes, setNewClothe, handleClickChange}: Prop): JSX.Ele
 									? clothe.favorite
 									: clothe.category === cat.category,
 						)}
-						selectCloth={selectCloth}
+						addClothe={addClothe}
 						handleClickList={() => {
 							handleClickList(index);
 						}}
-						setNewClothe={setNewClothe}
+						updateClothes={updateClothes}
 					/>,
 				)}
 			</ul>

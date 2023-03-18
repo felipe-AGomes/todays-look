@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
-import {type ClotheFe} from '../../types';
+import React from 'react';
+import {type Clothe} from '../../types';
 import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
 import {trash} from '../svg';
 import './ClothesSet.css';
 
 type Prop = {
-	selectedClothes: ClotheFe[];
+	selectedClothes: Clothe[];
 	removeCloth: (id: string) => void;
 };
 
@@ -20,7 +20,7 @@ function ClothesSet({selectedClothes, removeCloth}: Prop) {
 				image 
 				body
 				${body?.body === 'bodyLegs' ? 'bodyLegs' : ''}`}>
-				<img src={body?.href} alt={body?.category} />
+				<img src={body?.image} alt={body?.category} />
 				{body ? <SuspenseIcon
 					clothe={body}
 					icon={trash}
@@ -30,7 +30,7 @@ function ClothesSet({selectedClothes, removeCloth}: Prop) {
 			<div
 				className='image legs'
 				style={body?.body === 'bodyLegs' ? {display: 'none'} : {display: 'block'}}>
-				<img src={legs?.href} alt={legs?.category} />
+				<img src={legs?.image} alt={legs?.category} />
 				{legs ? <SuspenseIcon
 					clothe={legs}
 					icon={trash}
@@ -43,7 +43,7 @@ function ClothesSet({selectedClothes, removeCloth}: Prop) {
 					icon={trash}
 					handleClick={removeCloth}
 				/> : undefined}
-				<img src={shoes?.href} alt={shoes?.category} />
+				<img src={shoes?.image} alt={shoes?.category} />
 			</div>
 		</div>
 	);
