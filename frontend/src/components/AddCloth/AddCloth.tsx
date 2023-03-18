@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react';
 import {type Body, type Clothe} from '../../types';
 import './AddCloth.css';
@@ -73,6 +72,16 @@ function AddCloth({modal, updateClothes}: Prop) {
 		setCategory('CATEGORIA');
 	}
 
+	async function backgroundRemove(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+		event.preventDefault();
+		const formData = new FormData();
+		if (!image) {
+			return;
+		}
+
+		formData.append('image', image);
+	}
+
 	return (
 		<div id='addCloth' className={`${modal}`}>
 			<div className='addCloth-box'>
@@ -105,7 +114,8 @@ function AddCloth({modal, updateClothes}: Prop) {
 						<option value='SHORTS/SAIA'>SAIA</option>
 						<option value='CALÇADO'>CALÇADO</option>
 					</select>
-					<button>ENVIAR</button>
+					<button onClick={backgroundRemove}>REMOVER FUNDO</button>
+					<button type='submit'>ENVIAR</button>
 				</form>
 			</div>
 		</div>
