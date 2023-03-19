@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/object-curly-spacing */
 import React from 'react';
+
 import './SuspenseIcon.css';
 
 type Prop = {
@@ -9,11 +11,18 @@ type Prop = {
 	handleClick: (id: string) => void;
 };
 
-function SuspenseIcon({clothe, icon, handleClick}: Prop): JSX.Element {
+function SuspenseIcon({ clothe, icon, handleClick }: Prop): JSX.Element {
 	return (
-		<div className='suspense-icon' onClick={handleClick ? () => {
-			handleClick(clothe.id);
-		} : undefined}>{icon}
+		<div
+			className='suspense-icon'
+			onClick={
+				handleClick
+					? () => {
+						handleClick(clothe.id);
+					}
+					: undefined
+			}>
+			{icon}
 		</div>
 	);
 }

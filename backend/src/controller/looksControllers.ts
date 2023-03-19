@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/object-curly-spacing */
+import { type Response, type Request } from 'express';
 
-import {type Response, type Request} from 'express';
-import {type Clothe, type BodyReq} from 'src/types';
+import { type Clothe, type BodyReq } from 'src/types';
+
 let clothes: Clothe[] = [];
 
 const generateId = () => Math.random().toString(36).substring(2, 10);
@@ -10,7 +12,7 @@ function getAllClothes(_req: Request, res: Response): void {
 }
 
 function setNewCloth(req: Request, res: Response): void {
-	const {category, body} = req.body as BodyReq;
+	const { category, body } = req.body as BodyReq;
 	const image = req.file?.filename;
 	const url = `http://localhost:3333/files/${image ? image : ''}`;
 	const id = generateId();
@@ -27,12 +29,12 @@ function setNewCloth(req: Request, res: Response): void {
 }
 
 function setFavorite(req: Request, res: Response): void {
-	const {id} = req.params;
-	const result = clothes.filter(clothe => clothe.id === id);
+	const { id } = req.params;
+	const result = clothes.filter((clothe) => clothe.id === id);
 	if (result.length === 1) {
 		const clothe = result[0];
-		const newClothe = {...clothe, favorite: !clothe.favorite};
-		const updatedClothes = clothes.map(clothe => {
+		const newClothe = { ...clothe, favorite: !clothe.favorite };
+		const updatedClothes = clothes.map((clothe) => {
 			const newClothes = clothe.id === id ? newClothe : clothe;
 			return newClothes;
 		});
@@ -47,10 +49,4 @@ function setFavorite(req: Request, res: Response): void {
 	}
 }
 
-export {
-	getAllClothes,
-	setFavorite,
-	setNewCloth,
-	generateId,
-	clothes,
-};
+export { getAllClothes, setFavorite, setNewCloth, generateId, clothes };

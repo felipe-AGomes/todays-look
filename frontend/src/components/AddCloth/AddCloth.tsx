@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {type Body, type Message} from '../../types';
+/* eslint-disable @typescript-eslint/object-curly-spacing */
+import React, { useEffect, useState } from 'react';
+import { type Body, type Message } from '../../types';
 import './AddCloth.css';
 
 type Prop = {
@@ -7,7 +8,7 @@ type Prop = {
 	updateClothes: () => void;
 };
 
-function AddCloth({modal, updateClothes}: Prop): JSX.Element {
+function AddCloth({ modal, updateClothes }: Prop): JSX.Element {
 	const [image, setImage] = useState<File>();
 	const [urlImage, setUrlImage] = useState<string>('');
 	const [displayedImage, setDisplayedImage] = useState<string>('');
@@ -74,7 +75,7 @@ function AddCloth({modal, updateClothes}: Prop): JSX.Element {
 		if (urlImage !== '') {
 			const response = await fetch('http://localhost:3333/uploadbg', {
 				method: 'POST',
-				headers: {'Content-Type': 'application/json'},
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					category,
 					body: setBody(),
@@ -129,7 +130,7 @@ function AddCloth({modal, updateClothes}: Prop): JSX.Element {
 					}}>
 					<label htmlFor='file'>{
 						displayedImage ? (
-							<img src={displayedImage}/>
+							<img src={displayedImage} />
 						) : 'IMAGEM'
 					}</label>
 					<input
@@ -138,7 +139,7 @@ function AddCloth({modal, updateClothes}: Prop): JSX.Element {
 						id='file'
 						onChange={e => {
 							setImage(e.target.files?.[0]);
-						}}/>
+						}} />
 					<select onChange={e => {
 						setCategory(e.target.value);
 					}} name='category' id='category'>

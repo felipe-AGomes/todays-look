@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/object-curly-spacing */
 import React from 'react';
-import {type Clothe} from '../../types';
+import { type Clothe } from '../../types';
 import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
-import {trash} from '../svg';
+import { trash } from '../svg';
 import './ClothesSet.css';
 
 type Prop = {
@@ -9,7 +10,7 @@ type Prop = {
 	removeCloth: (id: string) => void;
 };
 
-function ClothesSet({selectedClothes, removeCloth}: Prop): JSX.Element {
+function ClothesSet({ selectedClothes, removeCloth }: Prop): JSX.Element {
 	const body = selectedClothes.filter(clothe => clothe.body === 'body' || clothe.body === 'bodyLegs' ? clothe : undefined)[0];
 	const legs = selectedClothes.filter(clothe => clothe.body === 'legs' ? clothe : undefined)[0];
 	const shoes = selectedClothes.filter(clothe => clothe.body === 'shoes' ? clothe : undefined)[0];
@@ -29,7 +30,7 @@ function ClothesSet({selectedClothes, removeCloth}: Prop): JSX.Element {
 			</div>
 			<div
 				className='image legs'
-				style={body?.body === 'bodyLegs' ? {display: 'none'} : {display: 'block'}}>
+				style={body?.body === 'bodyLegs' ? { display: 'none' } : { display: 'block' }}>
 				<img src={legs?.image} alt={legs?.category} />
 				{legs ? <SuspenseIcon
 					clothe={legs}

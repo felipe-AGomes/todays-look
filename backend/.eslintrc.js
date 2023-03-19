@@ -3,16 +3,11 @@ module.exports = {
 		es2021: true,
 		node: true,
 	},
-	extends: 'xo',
+	extends: ['xo', 'prettier'],
 	overrides: [
 		{
-			extends: [
-				'xo-typescript',
-			],
-			files: [
-				'*.ts',
-				'*.tsx',
-			],
+			extends: ['xo-typescript'],
+			files: ['*.ts', '*.tsx'],
 		},
 	],
 	parserOptions: {
@@ -21,6 +16,5 @@ module.exports = {
 		Project: 'tsconfig.json',
 		tsconfigRootDir: __dirname,
 	},
-	rules: {
-	},
+	rules: {},
 };

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/object-curly-spacing */
 // Const express = require('express');
-import express from 'express';
-import {router} from './router/routes';
 import cors from 'cors';
 import path from 'path';
+import express from 'express';
+
+import { router } from './router/routes';
 
 const uploadsPath = path.resolve(__dirname, '..', 'uploads', 'clothes');
 
