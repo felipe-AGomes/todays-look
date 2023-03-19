@@ -30,3 +30,9 @@ export type Clothe = {
 	image: string | undefined;
 	body: Body;
 };
+
+export type BodyReq = {
+	image: string | undefined;
+	category: Category;
+	body: Body;
+};

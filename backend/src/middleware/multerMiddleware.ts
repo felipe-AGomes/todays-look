@@ -1,7 +1,15 @@
 import multer from 'multer';
 
-const storage = multer.diskStorage({
-	destination: 'uploads/',
+const uploadsConfig = multer.diskStorage({
+	destination: 'uploads/clothes/',
+	filename(_req, file, callback) {
+		const fileName = file.originalname.replace(' ', '_');
+
+		callback(null, `${Date.now()}_${fileName}`);
+	},
+});
+const bgremoveConfig = multer.diskStorage({
+	destination: 'uploads/bgremove/',
 	filename(_req, file, callback) {
 		const fileName = file.originalname.replace(' ', '_');
 
@@ -9,6 +17,10 @@ const storage = multer.diskStorage({
 	},
 });
 
-const upload = multer({storage});
+const uploads = multer({storage: uploadsConfig});
+const bgremove = multer({storage: bgremoveConfig});
 
-export default upload;
+export {
+	uploads,
+	bgremove,
+};

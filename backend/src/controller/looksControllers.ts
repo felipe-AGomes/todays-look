@@ -1,13 +1,7 @@
 
 import {type Response, type Request} from 'express';
-import {type Category, type Body, type Clothe} from 'src/types';
+import {type Clothe, type BodyReq} from 'src/types';
 let clothes: Clothe[] = [];
-
-type BodyReq = {
-	image: string | undefined;
-	category: Category;
-	body: Body;
-};
 
 const generateId = () => Math.random().toString(36).substring(2, 10);
 
@@ -27,8 +21,9 @@ function setNewCloth(req: Request, res: Response): void {
 		image: url,
 		favorite: false,
 	});
-	const response = clothes.filter(e => e.id === id);
-	res.send(response[0]);
+	res.status(200).json({
+		message: 'New clothe seted',
+	});
 }
 
 function setFavorite(req: Request, res: Response): void {
@@ -42,9 +37,13 @@ function setFavorite(req: Request, res: Response): void {
 			return newClothes;
 		});
 		clothes = updatedClothes;
-		res.send(newClothe);
+		res.status(200).json({
+			message: 'Favorite seted',
+		});
 	} else {
-		res.send('error');
+		res.status(400).json({
+			error: 'Favorite not seted',
+		});
 	}
 }
 
@@ -52,4 +51,6 @@ export {
 	getAllClothes,
 	setFavorite,
 	setNewCloth,
+	generateId,
+	clothes,
 };

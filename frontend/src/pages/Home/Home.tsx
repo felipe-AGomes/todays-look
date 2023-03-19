@@ -20,7 +20,7 @@ function Home(): JSX.Element {
 		getAllClothes();
 	}, []);
 
-	const getAllClothes = async () => {
+	const getAllClothes = async (): Promise<void> => {
 		fetch('http://localhost:3333/clothes')
 			.then(async response => response.json())
 			.then(setClothes);
@@ -52,11 +52,11 @@ function Home(): JSX.Element {
 		}
 	}
 
-	function logOut() {
+	function logOut(): void {
 		console.log('Log Out');
 	}
 
-	function activeModal(n: 'addCloth' | 'cloth') {
+	function activeModal(n: 'addCloth' | 'cloth'): void {
 		if (n === 'addCloth') {
 			setModal({addCloth: 'active', looks: ''});
 			return;

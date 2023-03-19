@@ -31,3 +31,8 @@ export type Clothe = {
 	body: Body;
 };
 
+export type Message = {
+	error?: string;
+	message?: string;
+	body?: string;
+};

@@ -9,7 +9,7 @@ type Prop = {
 	removeCloth: (id: string) => void;
 };
 
-function ClothesSet({selectedClothes, removeCloth}: Prop) {
+function ClothesSet({selectedClothes, removeCloth}: Prop): JSX.Element {
 	const body = selectedClothes.filter(clothe => clothe.body === 'body' || clothe.body === 'bodyLegs' ? clothe : undefined)[0];
 	const legs = selectedClothes.filter(clothe => clothe.body === 'legs' ? clothe : undefined)[0];
 	const shoes = selectedClothes.filter(clothe => clothe.body === 'shoes' ? clothe : undefined)[0];

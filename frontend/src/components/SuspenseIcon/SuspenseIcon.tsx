@@ -9,7 +9,7 @@ type Prop = {
 	handleClick: (id: string) => void;
 };
 
-function SuspenseIcon({clothe, icon, handleClick}: Prop) {
+function SuspenseIcon({clothe, icon, handleClick}: Prop): JSX.Element {
 	return (
 		<div className='suspense-icon' onClick={handleClick ? () => {
 			handleClick(clothe.id);

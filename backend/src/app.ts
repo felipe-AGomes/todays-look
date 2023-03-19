@@ -4,7 +4,7 @@ import {router} from './router/routes';
 import cors from 'cors';
 import path from 'path';
 
-const uploadsPath = path.resolve(__dirname, '..', 'uploads');
+const uploadsPath = path.resolve(__dirname, '..', 'uploads', 'clothes');
 
 const app = express();
 app.use(express.json());

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {type Clothe, type CategoriesData} from '../../types';
+import {type Clothe, type CategoriesData, type Message} from '../../types';
 import SuspenseIcon from '../SuspenseIcon/SuspenseIcon';
 import {heartEmpty, heartFill} from '../svg';
 
@@ -22,14 +22,18 @@ function Categories({
 	updateClothes,
 	handleClickList,
 	addClothe,
-}: Props) {
-	async function setFavorite(id: string) {
+}: Props): JSX.Element {
+	async function setFavorite(id: string): Promise<void> {
 		const response = await fetch(`http://localhost:3333/clothes/${id}`, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json'},
 		});
-		const data = await response.json() as Clothe;
-		console.log(data);
+		const data = await response.json() as Message;
+		if (data.error) {
+			console.log(data.error);
+			return;
+		}
+
 		updateClothes();
 	}
 
