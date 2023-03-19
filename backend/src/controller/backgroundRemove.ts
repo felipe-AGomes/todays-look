@@ -20,12 +20,20 @@ type RemoveBgResponse = {
 };
 
 function backgroundRemove(req: Request, res: Response): void {
-	const imagePath = `${path.resolve(__dirname, '..', '..', 'uploads', 'bgremove')}/${
-		req.file ? req.file?.filename : ''
-	}`;
+	const imagePath = `${path.resolve(
+		__dirname,
+		'..',
+		'..',
+		'uploads',
+		'bgremove'
+	)}/${req.file ? req.file?.filename : ''}`;
 	const formData = new FormData();
 	formData.append('size', 'auto');
-	formData.append('image_file', fs.createReadStream(imagePath), path.basename(imagePath));
+	formData.append(
+		'image_file',
+		fs.createReadStream(imagePath),
+		path.basename(imagePath)
+	);
 
 	const removeBgResponse: Promise<AxiosResponse<RemoveBgResponse>> = axios({
 		method: 'post',
@@ -40,7 +48,13 @@ function backgroundRemove(req: Request, res: Response): void {
 	removeBgResponse
 		.then((response) => {
 			const fileName = req.file ? req.file.filename : '';
-			const imagePath = `${path.resolve(__dirname, '..', '..', 'uploads', 'clothes')}/${fileName}`;
+			const imagePath = `${path.resolve(
+				__dirname,
+				'..',
+				'..',
+				'uploads',
+				'clothes'
+			)}/${fileName}`;
 			if (response.status !== 200) {
 				console.error('Error:', response.status, response.statusText);
 				return;

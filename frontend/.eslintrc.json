@@ -16,5 +16,6 @@
 		"tsconfigRootDir": "c:/Users/falme/OneDrive/Documentos/GitHub/todays-look/frontend"
 	},
 	"plugins": ["react"],
-	"rules": {}
+	"rules": {
+	}
 }

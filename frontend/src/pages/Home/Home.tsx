@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/object-curly-spacing */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Looks from '../../components/Looks/Looks';
 import ClothesSet from '../../components/ClothesSet/ClothesSet';
 import './Home.css';
-import {type Clothe} from '../../types';
+import { type Clothe } from '../../types';
 import AddCloth from '../../components/AddCloth/AddCloth';
 
 type Modal = {
@@ -13,7 +14,7 @@ type Modal = {
 
 function Home(): JSX.Element {
 	const [selectedClothes, setSelectedClothes] = useState<Clothe[]>([]);
-	const [modal, setModal] = useState<Modal>({addCloth: '', looks: 'active'});
+	const [modal, setModal] = useState<Modal>({ addCloth: '', looks: 'active' });
 	const [clothes, setClothes] = useState<Clothe[]>([]);
 
 	useEffect(() => {
@@ -58,11 +59,11 @@ function Home(): JSX.Element {
 
 	function activeModal(n: 'addCloth' | 'cloth'): void {
 		if (n === 'addCloth') {
-			setModal({addCloth: 'active', looks: ''});
+			setModal({ addCloth: 'active', looks: '' });
 			return;
 		}
 
-		setModal({addCloth: '', looks: 'active'});
+		setModal({ addCloth: '', looks: 'active' });
 	}
 
 	return (
@@ -88,16 +89,16 @@ function Home(): JSX.Element {
 				}}>Sign out</button>
 			</header>
 			<div className='looks-container'>
-				<AddCloth updateClothes={getAllClothes} modal={modal.addCloth}/>
+				<AddCloth updateClothes={getAllClothes} modal={modal.addCloth} />
 				<Looks
 					clothes={clothes}
 					modal={modal.looks}
 					addClothe={addClothe}
-					updateClothes={getAllClothes}/>
+					updateClothes={getAllClothes} />
 
 				<ClothesSet
 					removeCloth={removeCloth}
-					selectedClothes={selectedClothes}/>
+					selectedClothes={selectedClothes} />
 			</div>
 		</main>
 	);
