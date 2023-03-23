@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/object-curly-spacing */
-import type aws from 'aws-sdk';
 import dotenv from 'dotenv';
 
 import { type Response, type Request } from 'express';
