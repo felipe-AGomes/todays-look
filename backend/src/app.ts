@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/object-curly-spacing */
-// Const express = require('express');
-import cors from 'cors';
 import path from 'path';
+
+import cors from 'cors';
 import express from 'express';
 
 import { router } from './router/routes';

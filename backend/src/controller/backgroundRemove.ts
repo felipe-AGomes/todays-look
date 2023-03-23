@@ -1,25 +1,20 @@
+/* eslint-disable no-warning-comments */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/comma-dangle */
 /* eslint-disable @typescript-eslint/object-curly-spacing */
 import fs from 'fs';
 import path from 'path';
 
 import axios from 'axios';
 import FormData from 'form-data';
-import { type AxiosResponse } from 'axios';
 import { type Request, type Response } from 'express';
 
 import { type BodyReq } from 'src/types';
 import { clothes, generateId } from './looksControllers';
 
-type RemoveBgResponse = {
-	data: ArrayBuffer;
-	status: number;
-	statusText: string;
-	headers: any;
-	config: any;
-	request?: any;
-};
+// TODO: fix sending images without background to s3 bucket
 
-function backgroundRemove(req: Request, res: Response): void {
+export function backgroundRemove(req: Request, res: Response): void {
 	const imagePath = `${path.resolve(
 		__dirname,
 		'..',
@@ -35,7 +30,7 @@ function backgroundRemove(req: Request, res: Response): void {
 		path.basename(imagePath)
 	);
 
-	const removeBgResponse: Promise<AxiosResponse<RemoveBgResponse>> = axios({
+	axios({
 		method: 'post',
 		url: 'https://api.remove.bg/v1.0/removebg',
 		data: formData,
@@ -44,10 +39,9 @@ function backgroundRemove(req: Request, res: Response): void {
 			...formData.getHeaders(),
 			'X-Api-Key': 'szRHGWyZTBXZuxkh4kosSkUG',
 		},
-	});
-	removeBgResponse
+	})
 		.then((response) => {
-			const fileName = req.file ? req.file.filename : '';
+			const fileName = req.file?.filename ?? '';
 			const imagePath = `${path.resolve(
 				__dirname,
 				'..',
@@ -71,19 +65,21 @@ function backgroundRemove(req: Request, res: Response): void {
 		});
 }
 
-function upLoadBackgroundRemove(req: Request, res: Response): void {
+export function upLoadBackgroundRemove(req: Request, res: Response): void {
 	const { category, body, image } = req.body as BodyReq;
+	const key = req.file ? req.file?.filename : '';
 	const id = generateId();
-	clothes.push({
+	const newClothe = {
 		id,
+		key,
 		category,
 		body,
 		image,
 		favorite: false,
-	});
+	};
+	clothes.push(newClothe);
 	res.status(200).json({
 		message: 'Enviado com sucesso!',
+		newClothe,
 	});
 }
-
-export { backgroundRemove, upLoadBackgroundRemove };

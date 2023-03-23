@@ -1,34 +1,51 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/object-curly-spacing */
-import { type Response, type Request } from 'express';
+import type aws from 'aws-sdk';
+import dotenv from 'dotenv';
 
+import { type Response, type Request } from 'express';
 import { type Clothe, type BodyReq } from 'src/types';
 
-let clothes: Clothe[] = [];
+dotenv.config();
 
-const generateId = () => Math.random().toString(36).substring(2, 10);
+type MulterFile = {
+	key?: string;
+};
 
-function getAllClothes(_req: Request, res: Response): void {
+const { IMAGE_ROUTE } = process.env;
+export let clothes: Clothe[] = [];
+
+export const generateId = () => Math.random().toString(36).substring(2, 10);
+
+export function getAllClothes(_req: Request, res: Response): void {
 	res.status(200).send(clothes);
 }
 
-function setNewCloth(req: Request, res: Response): void {
+export function setNewCloth(req: Request, res: Response): void {
 	const { category, body } = req.body as BodyReq;
-	const image = req.file?.filename;
-	const url = `http://localhost:3333/files/${image ? image : ''}`;
+	const { key } = req.file as MulterFile;
+	const filename = req.file?.filename;
+	const url = `${IMAGE_ROUTE ?? 'http://localhost:3333/files'}/${
+		filename ?? key
+	}`;
 	const id = generateId();
-	clothes.push({
+	const newClothe: Clothe = {
 		id,
+		key: filename ?? key ?? '',
 		category,
 		body,
 		image: url,
 		favorite: false,
-	});
+	};
+	clothes.push(newClothe);
 	res.status(200).json({
 		message: 'New clothe seted',
+		newClothe,
 	});
 }
 
-function setFavorite(req: Request, res: Response): void {
+export function setFavorite(req: Request, res: Response): void {
 	const { id } = req.params;
 	const result = clothes.filter((clothe) => clothe.id === id);
 	if (result.length === 1) {
@@ -41,6 +58,7 @@ function setFavorite(req: Request, res: Response): void {
 		clothes = updatedClothes;
 		res.status(200).json({
 			message: 'Favorite seted',
+			newClothe,
 		});
 	} else {
 		res.status(400).json({
@@ -48,5 +66,3 @@ function setFavorite(req: Request, res: Response): void {
 		});
 	}
 }
-
-export { getAllClothes, setFavorite, setNewCloth, generateId, clothes };

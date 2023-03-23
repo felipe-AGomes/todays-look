@@ -21,6 +21,7 @@ export type CategoriesData = {
 
 export type Clothe = {
 	id: string;
+	key: string;
 	category: Category;
 	favorite: boolean;
 	image: string | undefined;

@@ -1,26 +1,31 @@
+/* eslint-disable @typescript-eslint/object-curly-spacing */
+
 import multer from 'multer';
+import { storageConfig } from 'src/config/multerConfig';
 
-const uploadsConfig = multer.diskStorage({
-	destination: 'uploads/clothes/',
-	filename(_req, file, callback) {
-		const fileName = file.originalname.replace(' ', '_');
-
-		callback(null, `${Date.now()}_${fileName}`);
+export const uploadLocalOrBucket = multer({
+	storage:
+		storageConfig.localUpload /* To dev storageConfig.localUpload or to deploy storageConfig.bucketUpload  */,
+	limits: { fileSize: 24_000_000 },
+	fileFilter(_req, file, callback) {
+		const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png'];
+		if (allowedMimes.includes(file.mimetype)) {
+			callback(null, true);
+		} else {
+			callback(new Error('Invalid file type'));
+		}
 	},
 });
-const bgremoveConfig = multer.diskStorage({
-	destination: 'uploads/bgremove/',
-	filename(_req, file, callback) {
-		const fileName = file.originalname.replace(' ', '_');
 
-		callback(null, `${Date.now()}_${fileName}`);
+export const bgremove = multer({
+	storage: storageConfig.bgremoveConfig,
+	limits: { fileSize: 24_000_000 },
+	fileFilter(_req, file, callback) {
+		const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png'];
+		if (allowedMimes.includes(file.mimetype)) {
+			callback(null, true);
+		} else {
+			callback(new Error('Invalid file type'));
+		}
 	},
 });
-
-const uploads = multer({storage: uploadsConfig});
-const bgremove = multer({storage: bgremoveConfig});
-
-export {
-	uploads,
-	bgremove,
-};

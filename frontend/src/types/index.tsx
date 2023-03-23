@@ -4,19 +4,19 @@ export type SelectedClothes = {
 };
 
 export type Category =
-'CALÇA'
-| 'SHORTS/SAIA'
-| 'BLUSA'
-| 'CALÇADO'
-| 'CAMISETA'
-| 'FAVORITO'
-| 'VESTIDO';
+	'CALÇA'
+	| 'SHORTS/SAIA'
+	| 'BLUSA'
+	| 'CALÇADO'
+	| 'CAMISETA'
+	| 'FAVORITO'
+	| 'VESTIDO';
 
 export type Body =
-'body'
-| 'legs'
-| 'shoes'
-| 'bodyLegs';
+	'body'
+	| 'legs'
+	| 'shoes'
+	| 'bodyLegs';
 
 export type CategoriesData = {
 	category: Category | 'TODOS';
@@ -25,6 +25,7 @@ export type CategoriesData = {
 
 export type Clothe = {
 	id: string;
+	key: string;
 	category: Category;
 	favorite: boolean;
 	image: string;
