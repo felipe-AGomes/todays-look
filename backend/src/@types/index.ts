@@ -20,16 +20,32 @@ export type CategoriesData = {
 };
 
 export type Clothe = {
-	id: string;
 	key: string;
 	category: Category;
-	favorite: boolean;
 	image: string | undefined;
 	body: Body;
+	userId: number;
 };
 
 export type BodyReq = {
 	image: string | undefined;
 	category: Category;
 	body: Body;
+};
+
+export type UserData = {
+	name: string;
+	email: string;
+	password: string;
+};
+
+export type Register = {
+	password: string;
+	name: string;
+	email: string;
+};
+
+export type Login = {
+	password: string;
+	email: string;
 };

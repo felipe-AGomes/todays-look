@@ -9,8 +9,8 @@ import axios from 'axios';
 import FormData from 'form-data';
 import { type Request, type Response } from 'express';
 
-import { type BodyReq } from 'src/types';
-import { clothes, generateId } from './looksControllers';
+import { type BodyReq } from 'src/@types';
+import { clothes, generateId } from './clothesControllers';
 
 // TODO: fix sending images without background to s3 bucket
 
