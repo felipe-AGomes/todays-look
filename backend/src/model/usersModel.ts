@@ -80,6 +80,7 @@ async function userLogin(data: Login, res: Response) {
 			error: false,
 			message: 'Successfully loggin',
 			token,
+			userName: user.name,
 			userLogged: user.id,
 			emailUser: user.email,
 		});

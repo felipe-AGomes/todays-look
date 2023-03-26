@@ -5,7 +5,7 @@ import { storageConfig } from 'src/config/multerConfig';
 
 export const uploadLocalOrBucket = multer({
 	storage:
-		storageConfig.localUpload /* To dev storageConfig.localUpload or to deploy storageConfig.bucketUpload  */,
+		storageConfig.bucketUpload /* To dev storageConfig.localUpload or to deploy storageConfig.bucketUpload  */,
 	limits: { fileSize: 24_000_000 },
 	fileFilter(_req, file, callback) {
 		const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png'];
