@@ -5,7 +5,6 @@ import { type Model } from 'sequelize';
 import Sequelize from 'sequelize';
 
 import db from '../connect';
-import Clothes from './clothes';
 
 type UsersAttributes = {
 	id: number;
